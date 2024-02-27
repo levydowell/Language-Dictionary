@@ -1,0 +1,14 @@
+{
+  "manifest_version": 3,
+  "name": "Language Dictionary",
+  "version": "1.0",
+  "description": "Highlight a word and get a popup dictionary with the definition of that word.",
+  "content_scripts": [
+    {
+      "js": ["scripts/find-definition.js"],
+
+      "matches": ["*://*/*"]
+    }
+  ],
+  "permissions": ["activeTab"]
+}
