@@ -56,12 +56,35 @@ function printDefinitions (definitionToPrint) {
   console.log(wordType);
 
   const arrayOfDefs = Object.values(definitionToPrint)[0];
-  
+  dialogueBox(arrayOfDefs);
   //prints out all the definitions
-  for (let i=0; i<arrayOfDefs.length; i++) {
-    console.log(arrayOfDefs[i].definition);
-  }
+  // for (let i=0; i<arrayOfDefs.length; i++) {
+  //   console.log(arrayOfDefs[i].definition);
+  // }
   
+}
+
+//read in array of definitions and print to dialogueBox
+//dialogue box show up, but not with the definitions. its blank
+function dialogueBox (arrayOfDefs) {
+  var popup = document.createElement("dialog");
+  popup.innerText = "some popup";
+  for (let i=0; i<arrayOfDefs.length; i++) {
+    let tempDef = document.createElement("p");
+    tempDef.innerText = arrayOfDefs[i];
+    popup.appendChild(tempDef);
+    // popup.innerText += arrayOfDefs[i].definition;
+  }
+  console.log("popup text", popup.innerText);
+  // popup.textContent = "This is a dialog";
+  var button = document.createElement("button");
+  button.textContent = "Close";
+  popup.appendChild(button);
+  button.addEventListener("click", function() {
+    popup.close();
+  });
+  document.body.appendChild(popup);
+  popup.showModal();
 }
 
 
