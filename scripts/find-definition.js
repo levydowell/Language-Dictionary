@@ -25,10 +25,13 @@ async function findDef() {
     console.log(typeAndDefintion)
     defs.push(typeAndDefintion);
   }
-  console.log(defs);
+  
+  const definitionElement = document.createElement("div");
   defs.forEach((element) => {
-    printDefinitions(element);
+    definitionElement.append(printDefinitions(element));
   });
+  console.log(definitionElement);
+  dialogueBox(definitionElement);
 }
 
 /**
@@ -52,38 +55,40 @@ function listDefinitions (definitionObject) {
  */
 function printDefinitions (definitionToPrint) {
   // Object.keys returns list of keys, and there is only one key passed(the word type), so you need to access definitionToPrint[0];
-  const wordType = Object.keys(definitionToPrint)[0];
-  console.log(wordType);
+  const wordTypeElement = document.createElement("div");
+  const wordType = document.createElement("h5");
+  wordType.innerText = Object.keys(definitionToPrint)[0];
+  wordTypeElement.append(wordType);
 
   const arrayOfDefs = Object.values(definitionToPrint)[0];
-  dialogueBox(arrayOfDefs);
-  //prints out all the definitions
-  // for (let i=0; i<arrayOfDefs.length; i++) {
-  //   console.log(arrayOfDefs[i].definition);
-  // }
+  console.log('arrayofdefs', arrayOfDefs)
+  for (let i = 0; i < arrayOfDefs.length; i++) {
+    let def = document.createElement("p");
+    def.innerText = arrayOfDefs[i].definition;
+    console.log('each def', arrayOfDefs[i].definition);
+    wordTypeElement.append(def);
+  }
+
+  return wordTypeElement
   
 }
 
 //read in array of definitions and print to dialogueBox
 //dialogue box show up, but not with the definitions. its blank
-function dialogueBox (arrayOfDefs) {
+function dialogueBox (definitionElement) {
   var popup = document.createElement("dialog");
-  popup.innerText = "some popup";
-  for (let i=0; i<arrayOfDefs.length; i++) {
-    let tempDef = document.createElement("p");
-    tempDef.innerText = arrayOfDefs[i];
-    popup.appendChild(tempDef);
-    // popup.innerText += arrayOfDefs[i].definition;
-  }
-  console.log("popup text", popup.innerText);
-  // popup.textContent = "This is a dialog";
+
+  popup.append(definitionElement);
+ 
+  // console.log("popup text", popup.innerHTML);
+  
   var button = document.createElement("button");
   button.textContent = "Close";
   popup.appendChild(button);
   button.addEventListener("click", function() {
     popup.close();
   });
-  document.body.appendChild(popup);
+  document.body.append(popup);
   popup.showModal();
 }
 
